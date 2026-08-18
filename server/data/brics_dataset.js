@@ -9,8 +9,8 @@ export const BRICS_COUNTRIES = {
     currency: 'INR (₹)',
     healthSystem: 'Ayushman Bharat & National Health Mission (NHM)',
     unitType: 'Primary Health Centre (PHC)',
-    centerCoordinates: [19.7515, 75.7139],
-    zoom: 6,
+    centerCoordinates: [16.7384, 74.5976],
+    zoom: 9,
     districts: ['Kolhapur', 'Pune', 'Ernakulam', 'Varanasi', 'Cuttack']
   },
   BRAZIL: {
@@ -20,8 +20,8 @@ export const BRICS_COUNTRIES = {
     currency: 'BRL (R$)',
     healthSystem: 'Sistema Único de Saúde (SUS)',
     unitType: 'Unidade Básica de Saúde (UBS)',
-    centerCoordinates: [-14.2350, -51.9253],
-    zoom: 5,
+    centerCoordinates: [-22.9150, -47.0380],
+    zoom: 11,
     districts: ['São Paulo', 'Campinas', 'Salvador', 'Manaus', 'Recife']
   },
   SOUTH_AFRICA: {
@@ -31,9 +31,31 @@ export const BRICS_COUNTRIES = {
     currency: 'ZAR (R)',
     healthSystem: 'National Health Insurance (NHI) & Primary Care',
     unitType: 'Community Health Centre (CHC)',
-    centerCoordinates: [-29.0852, 26.1596],
-    zoom: 6,
+    centerCoordinates: [-26.1076, 28.0965],
+    zoom: 10,
     districts: ['Johannesburg', 'eThekwini (Durban)', 'Cape Town', 'Polokwane', 'Mthatha']
+  },
+  RUSSIA: {
+    code: 'RU',
+    name: 'Russia',
+    flag: '🇷🇺',
+    currency: 'RUB (₽)',
+    healthSystem: 'Minzdrav & EGISZ Digital Health Platform',
+    unitType: 'Feldsher-Obstetric Post (FAP)',
+    centerCoordinates: [55.0084, 82.9357],
+    zoom: 9,
+    districts: ['Novosibirsk', 'Krasnoyarsk', 'Irkutsk', 'Omsk', 'Tomsk']
+  },
+  CHINA: {
+    code: 'CN',
+    name: 'China',
+    flag: '🇨🇳',
+    currency: 'CNY (¥)',
+    healthSystem: 'National Health Commission (NHC) & Basic Public Health',
+    unitType: 'Township Health Center (THC)',
+    centerCoordinates: [30.6586, 104.0648],
+    zoom: 9,
+    districts: ['Chengdu', 'Dujiangyan', 'Mianyang', 'Yibin', 'Leshan']
   }
 };
 
@@ -295,6 +317,130 @@ export const INITIAL_PHC_NODES = [
       { medicineId: 'MED-07', stock: 480, dailyAvgBurn: 20.0, expiryDays: 360, status: 'ADEQUATE' },
       { medicineId: 'MED-08', stock: 38, dailyAvgBurn: 0.9, expiryDays: 90, status: 'SURPLUS' }
     ]
+  },
+
+  // --- RUSSIA (NOVOSIBIRSK OBLAST / SIBERIA) ---
+  {
+    id: 'FAP-RU-001',
+    country: 'RU',
+    name: 'Suzun Rural Feldsher-Obstetric Post',
+    district: 'Novosibirsk',
+    state: 'Siberia',
+    lat: 53.7820,
+    lng: 82.3120,
+    catchmentPopulation: 14500,
+    totalBeds: 6,
+    occupiedBeds: 5,
+    doctorAttendance: '1/1 Feldsher Present',
+    nurseAttendance: '2/2 Present',
+    coldChainStatus: 'CRITICAL: Sub-zero Freeze Risk (-28°C Ambient)',
+    powerBackupHours: 10,
+    connectivity: 'Satellite / Intermittent',
+    resilienceScore: 40,
+    riskStatus: 'CRITICAL_SURGE',
+    alertMessage: 'Extreme winter freeze alert: Heating failure risks freezing liquid insulin & vaccines; acute respiratory bronchitis surge.',
+    inventory: [
+      { medicineId: 'MED-01', stock: 8, dailyAvgBurn: 0.2, expiryDays: 190, status: 'ADEQUATE' },
+      { medicineId: 'MED-02', stock: 6, dailyAvgBurn: 2.1, expiryDays: 45, status: 'STOCKOUT_IMMINENT' },
+      { medicineId: 'MED-03', stock: 15, dailyAvgBurn: 1.0, expiryDays: 140, status: 'LOW' },
+      { medicineId: 'MED-04', stock: 60, dailyAvgBurn: 8.5, expiryDays: 180, status: 'LOW' },
+      { medicineId: 'MED-05', stock: 90, dailyAvgBurn: 10.0, expiryDays: 220, status: 'ADEQUATE' },
+      { medicineId: 'MED-06', stock: 40, dailyAvgBurn: 3.0, expiryDays: 200, status: 'ADEQUATE' },
+      { medicineId: 'MED-07', stock: 75, dailyAvgBurn: 28.0, expiryDays: 150, status: 'STOCKOUT_IMMINENT' },
+      { medicineId: 'MED-08', stock: 4, dailyAvgBurn: 0.8, expiryDays: 30, status: 'STOCKOUT_IMMINENT' }
+    ]
+  },
+  {
+    id: 'FAP-RU-002',
+    country: 'RU',
+    name: 'Maslyanino Central District Hospital',
+    district: 'Novosibirsk',
+    state: 'Siberia',
+    lat: 54.3380,
+    lng: 84.2180,
+    catchmentPopulation: 28000,
+    totalBeds: 22,
+    occupiedBeds: 11,
+    doctorAttendance: '5/5 Present',
+    nurseAttendance: '8/8 Present',
+    coldChainStatus: 'OPTIMAL: Heated Thermal Storage (+4.0°C)',
+    powerBackupHours: 60,
+    connectivity: 'Fiber / High Speed',
+    resilienceScore: 91,
+    riskStatus: 'SURPLUS_DONOR',
+    alertMessage: 'Thermal transit corridor active: 85 vials of temperature-controlled Human Insulin and Paracetamol ready for redistribution.',
+    inventory: [
+      { medicineId: 'MED-01', stock: 24, dailyAvgBurn: 0.4, expiryDays: 210, status: 'ADEQUATE' },
+      { medicineId: 'MED-02', stock: 88, dailyAvgBurn: 1.8, expiryDays: 60, status: 'SURPLUS_EXPIRING_SOON' },
+      { medicineId: 'MED-03', stock: 55, dailyAvgBurn: 1.4, expiryDays: 180, status: 'ADEQUATE' },
+      { medicineId: 'MED-04', stock: 240, dailyAvgBurn: 9.0, expiryDays: 290, status: 'ADEQUATE' },
+      { medicineId: 'MED-05', stock: 320, dailyAvgBurn: 11.0, expiryDays: 310, status: 'ADEQUATE' },
+      { medicineId: 'MED-06', stock: 130, dailyAvgBurn: 3.0, expiryDays: 240, status: 'ADEQUATE' },
+      { medicineId: 'MED-07', stock: 520, dailyAvgBurn: 18.0, expiryDays: 70, status: 'SURPLUS_EXPIRING_SOON' },
+      { medicineId: 'MED-08', stock: 32, dailyAvgBurn: 0.7, expiryDays: 120, status: 'SURPLUS' }
+    ]
+  },
+
+  // --- CHINA (SICHUAN PROVINCE / CHENGDU BASIN) ---
+  {
+    id: 'THC-CN-001',
+    country: 'CN',
+    name: 'Dujiangyan Qingchengshan Health Center',
+    district: 'Chengdu',
+    state: 'Sichuan',
+    lat: 30.8980,
+    lng: 103.5720,
+    catchmentPopulation: 36000,
+    totalBeds: 20,
+    occupiedBeds: 18,
+    doctorAttendance: '4/4 Present',
+    nurseAttendance: '7/7 Present',
+    coldChainStatus: 'STABLE (3.9°C)',
+    powerBackupHours: 24,
+    connectivity: '5G / Ultra-fast',
+    resilienceScore: 44,
+    riskStatus: 'CRITICAL_SURGE',
+    alertMessage: 'Min River torrential flood warning: Acute gastrointestinal cases rising +280%; ORS & Amoxicillin at 2-day buffer.',
+    inventory: [
+      { medicineId: 'MED-01', stock: 6, dailyAvgBurn: 1.8, expiryDays: 90, status: 'STOCKOUT_IMMINENT' },
+      { medicineId: 'MED-02', stock: 32, dailyAvgBurn: 2.0, expiryDays: 110, status: 'ADEQUATE' },
+      { medicineId: 'MED-03', stock: 24, dailyAvgBurn: 2.2, expiryDays: 130, status: 'LOW' },
+      { medicineId: 'MED-04', stock: 70, dailyAvgBurn: 22.0, expiryDays: 180, status: 'STOCKOUT_IMMINENT' },
+      { medicineId: 'MED-05', stock: 45, dailyAvgBurn: 38.0, expiryDays: 200, status: 'STOCKOUT_IMMINENT' },
+      { medicineId: 'MED-06', stock: 35, dailyAvgBurn: 6.0, expiryDays: 160, status: 'LOW' },
+      { medicineId: 'MED-07', stock: 180, dailyAvgBurn: 26.0, expiryDays: 240, status: 'LOW' },
+      { medicineId: 'MED-08', stock: 12, dailyAvgBurn: 1.2, expiryDays: 80, status: 'LOW' }
+    ]
+  },
+  {
+    id: 'THC-CN-002',
+    country: 'CN',
+    name: 'Pixian Regional Smart Medical Station',
+    district: 'Chengdu',
+    state: 'Sichuan',
+    lat: 30.8120,
+    lng: 103.8860,
+    catchmentPopulation: 52000,
+    totalBeds: 30,
+    occupiedBeds: 12,
+    doctorAttendance: '6/6 Present',
+    nurseAttendance: '12/12 Present',
+    coldChainStatus: 'OPTIMAL: Automated Smart Cold Vault (3.4°C)',
+    powerBackupHours: 72,
+    connectivity: '5G / Dedicated Health Mesh',
+    resilienceScore: 94,
+    riskStatus: 'SURPLUS_DONOR',
+    alertMessage: 'Automated UAV Drone redistribution ready: 600 ORS packs and 450 Amoxicillin strips available for flood relief corridor.',
+    inventory: [
+      { medicineId: 'MED-01', stock: 42, dailyAvgBurn: 0.8, expiryDays: 180, status: 'ADEQUATE' },
+      { medicineId: 'MED-02', stock: 110, dailyAvgBurn: 2.4, expiryDays: 210, status: 'SURPLUS' },
+      { medicineId: 'MED-03', stock: 95, dailyAvgBurn: 2.1, expiryDays: 200, status: 'SURPLUS' },
+      { medicineId: 'MED-04', stock: 480, dailyAvgBurn: 15.0, expiryDays: 60, status: 'SURPLUS_EXPIRING_SOON' },
+      { medicineId: 'MED-05', stock: 680, dailyAvgBurn: 20.0, expiryDays: 50, status: 'SURPLUS_EXPIRING_SOON' },
+      { medicineId: 'MED-06', stock: 220, dailyAvgBurn: 4.5, expiryDays: 300, status: 'ADEQUATE' },
+      { medicineId: 'MED-07', stock: 720, dailyAvgBurn: 25.0, expiryDays: 360, status: 'ADEQUATE' },
+      { medicineId: 'MED-08', stock: 48, dailyAvgBurn: 1.0, expiryDays: 140, status: 'SURPLUS' }
+    ]
   }
 ];
 
@@ -302,7 +448,7 @@ export const BRICS_EPIDEMIC_FEDERATION_SIGNALS = [
   {
     id: 'SIGNAL-01',
     sourceCountry: 'Brazil (São Paulo)',
-    targetRelevance: ['India', 'South Africa'],
+    targetRelevance: ['India', 'South Africa', 'China'],
     diseaseVector: 'Dengue Serotype-3 (DENV-3) Surge Pattern',
     confidenceScore: 94,
     observation: 'Early monsoon spike in Brazil showed 2.4x higher pediatric fluid dehydration. Recommends raising minimum ORS and IV Saline buffer norms across Indian sub-tropical clinics by 40% before arrival of monsoon front.',
@@ -311,7 +457,7 @@ export const BRICS_EPIDEMIC_FEDERATION_SIGNALS = [
   {
     id: 'SIGNAL-02',
     sourceCountry: 'South Africa (Gauteng)',
-    targetRelevance: ['India', 'Brazil'],
+    targetRelevance: ['India', 'Brazil', 'Russia'],
     diseaseVector: 'Cold-Chain Resiliency & Load-Shedding Protocol',
     confidenceScore: 91,
     observation: 'Phase-change cold-box logistics with solar buffering preserved 99.4% insulin and anti-toxin potency during power grid interruptions.',
@@ -320,10 +466,28 @@ export const BRICS_EPIDEMIC_FEDERATION_SIGNALS = [
   {
     id: 'SIGNAL-03',
     sourceCountry: 'India (Kerala)',
-    targetRelevance: ['Brazil', 'South Africa'],
+    targetRelevance: ['Brazil', 'South Africa', 'Russia', 'China'],
     diseaseVector: 'Community ASHA / PHC Real-time Syndromic Surveillance',
     confidenceScore: 96,
     observation: 'Multilingual voice logging reduced stockout reporting lag from 14 days to under 4 hours, preventing 88% of secondary snakebite and leptospirosis deaths in 2025.',
     suggestedAction: 'Adopt voice-first multimodal reporting for primary care health workers across BRICS languages.'
+  },
+  {
+    id: 'SIGNAL-04',
+    sourceCountry: 'China (Sichuan)',
+    targetRelevance: ['India', 'Brazil', 'Russia', 'South Africa'],
+    diseaseVector: 'AI Early Warning & Drone Emergency Dispatch Mesh',
+    confidenceScore: 97,
+    observation: 'Autonomous UAV corridors delivered temperature-critical antivenom and antibiotics across flood-cut mountainous valleys in under 38 minutes.',
+    suggestedAction: 'Integrate multi-modal dispatch (ground fleet + emergency UAV) for top-tier critical stockout nodes.'
+  },
+  {
+    id: 'SIGNAL-05',
+    sourceCountry: 'Russia (Novosibirsk)',
+    targetRelevance: ['China', 'South Africa', 'India'],
+    diseaseVector: 'Extreme Temperature Sub-Zero Biological Preservation',
+    confidenceScore: 93,
+    observation: 'Heated phase-change thermal transit prevents crystallization of liquid insulin in sub-zero winter temperatures down to -35°C.',
+    suggestedAction: 'Implement automated dual-threshold cold-chain alerts for both freeze (<2°C) and heat (>8°C) excursions.'
   }
 ];

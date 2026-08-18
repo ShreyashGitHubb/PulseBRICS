@@ -18,12 +18,14 @@ import QuickUpdateModal from './components/PHCLogger/QuickUpdateModal.jsx';
 import RebalanceModal from './components/Logistics/RebalanceModal.jsx';
 import PredictiveForecastModal from './components/Analytics/PredictiveForecastModal.jsx';
 import CrisisSimulator from './components/Simulation/CrisisSimulator.jsx';
+import GuidedTourModal from './components/GuidedTour/GuidedTourModal.jsx';
+import PitchDeckModal from './components/PitchDeck/PitchDeckModal.jsx';
 
 function MainApp() {
   const [activeTab, setActiveTab] = useState('OVERVIEW');
 
   return (
-    <div className="min-h-screen flex bg-[#090D16] text-slate-100 selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen flex bg-[#F8F9FA] dark:bg-[#090D16] text-slate-800 dark:text-slate-100 selection:bg-[#1A73E8] selection:text-white transition-colors duration-200">
       
       {/* Left Enterprise Sidebar */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -51,21 +53,23 @@ function MainApp() {
         <RebalanceModal />
         <PredictiveForecastModal />
         <CrisisSimulator />
+        <GuidedTourModal setActiveTab={setActiveTab} />
+        <PitchDeckModal />
 
         {/* Footer */}
-        <footer className="border-t border-slate-800/80 bg-[#0B0F19] py-4 px-6 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <footer className="border-t border-[#DADCE0] dark:border-slate-800/80 bg-white dark:bg-[#0B0F19] py-4 px-6 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2 transition-colors">
           <div className="flex items-center space-x-2">
-            <span className="font-semibold text-slate-300">PulseBRICS Health Mesh</span>
+            <span className="font-semibold text-slate-700 dark:text-slate-300">PulseBRICS Health Mesh</span>
             <span>•</span>
             <span>Google Cloud BRICS Hackathon 2026</span>
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">
             India's 2026 BRICS Chairship — Digital Public Infrastructure (DPI)
           </p>
-          <div className="flex items-center space-x-3 text-[11px] text-slate-400">
-            <span className="text-indigo-400">Gemini 2.0 AI</span>
+          <div className="flex items-center space-x-3 text-[11px] text-slate-500 dark:text-slate-400">
+            <span className="text-[#1A73E8] font-medium">Gemini 2.0 AI</span>
             <span>•</span>
-            <span className="text-emerald-400">FHIR Interoperable</span>
+            <span className="text-[#188038] dark:text-emerald-400 font-medium">FHIR Interoperable</span>
           </div>
         </footer>
 

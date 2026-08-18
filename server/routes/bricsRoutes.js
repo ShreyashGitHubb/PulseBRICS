@@ -36,6 +36,20 @@ router.get('/benchmarks', (req, res) => {
       avgStockoutRate: '6.4% (Down from 24.3%)',
       digitalAdoption: '82% (Stock Visibility System SVS)',
       wasteAvoidedMonthly: '$890K'
+    },
+    {
+      country: 'Russia 🇷🇺',
+      phcNetworkSize: '34,200 FAPs (Minzdrav)',
+      avgStockoutRate: '4.8% (Down from 19.4%)',
+      digitalAdoption: '91% (EGISZ Sub-Zero Mesh)',
+      wasteAvoidedMonthly: '$1.78M'
+    },
+    {
+      country: 'China 🇨🇳',
+      phcNetworkSize: '35,800 THCs (NHC)',
+      avgStockoutRate: '3.1% (Down from 15.2%)',
+      digitalAdoption: '97% (Smart Township Health Cloud)',
+      wasteAvoidedMonthly: '$3.40M'
     }
   ];
   res.json({ success: true, data: benchmarks });

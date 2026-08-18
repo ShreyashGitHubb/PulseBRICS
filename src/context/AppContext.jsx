@@ -12,7 +12,9 @@ const AppContext = createContext(null);
 export const COUNTRIES = [
   { code: 'IN', name: 'India', flag: '🇮🇳', currency: '₹ (INR)', unit: 'PHC', lat: 16.7384, lng: 74.5976, zoom: 9 },
   { code: 'BR', name: 'Brazil', flag: '🇧🇷', currency: 'R$ (BRL)', unit: 'UBS', lat: -22.9150, lng: -47.0380, zoom: 11 },
-  { code: 'ZA', name: 'South Africa', flag: '🇿🇦', currency: 'R (ZAR)', unit: 'CHC', lat: -26.1076, lng: 28.0965, zoom: 10 }
+  { code: 'ZA', name: 'South Africa', flag: '🇿🇦', currency: 'R (ZAR)', unit: 'CHC', lat: -26.1076, lng: 28.0965, zoom: 10 },
+  { code: 'RU', name: 'Russia', flag: '🇷🇺', currency: '₽ (RUB)', unit: 'FAP', lat: 53.7820, lng: 82.3120, zoom: 8 },
+  { code: 'CN', name: 'China', flag: '🇨🇳', currency: '¥ (CNY)', unit: 'THC', lat: 30.8980, lng: 103.5720, zoom: 9 }
 ];
 
 export const ROLES = [
@@ -43,6 +45,26 @@ export function AppProvider({ children }) {
   const [forecastTargetMed, setForecastTargetMed] = useState('MED-01');
   const [crisisSimulatorOpen, setCrisisSimulatorOpen] = useState(false);
   const [activeCrisisName, setActiveCrisisName] = useState(null);
+  const [guidedTourOpen, setGuidedTourOpen] = useState(false);
+  const [pitchDeckOpen, setPitchDeckOpen] = useState(false);
+  
+  // Theme state: 'dark' | 'light'
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('pulse_brics_theme') || 'dark';
+  });
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('pulse_brics_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   // Active filter
   const [searchQuery, setSearchQuery] = useState('');
@@ -157,6 +179,12 @@ export function AppProvider({ children }) {
         setCrisisSimulatorOpen,
         activeCrisisName,
         setActiveCrisisName,
+        guidedTourOpen,
+        setGuidedTourOpen,
+        pitchDeckOpen,
+        setPitchDeckOpen,
+        theme,
+        toggleTheme,
         openVoiceModalFor,
         openVisionModalFor,
         openQuickUpdateFor,

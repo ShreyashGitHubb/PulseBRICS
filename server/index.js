@@ -50,19 +50,23 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`
-  =============================================================
-   🌐 PulseBRICS Health Supply Chain AI Server Running!
-   📡 Port: http://localhost:${PORT}
-   🚀 API Endpoints:
-      - GET  /api/health
-      - GET  /api/phc (List PHCs)
-      - POST /api/ai/voice-parse (Gemini Multilingual Audio)
-      - POST /api/ai/vision-scan (Gemini Vision OCR)
-      - GET  /api/predict/forecast (Time-Series Prediction)
-      - POST /api/agent/rebalance/find-match (Gemini Logistics Agent)
-      - GET  /api/brics/signals (Cross-Border Federation)
-  =============================================================
-  `);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`
+    =============================================================
+     🌐 PulseBRICS Health Supply Chain AI Server Running!
+     📡 Port: http://localhost:${PORT}
+     🚀 API Endpoints:
+        - GET  /api/health
+        - GET  /api/phc (List PHCs)
+        - POST /api/ai/voice-parse (Gemini Multilingual Audio)
+        - POST /api/ai/vision-scan (Gemini Vision OCR)
+        - GET  /api/predict/forecast (Time-Series Prediction)
+        - POST /api/agent/rebalance/find-match (Gemini Logistics Agent)
+        - GET  /api/brics/signals (Cross-Border Federation)
+    =============================================================
+    `);
+  });
+}
+
+export default app;
