@@ -130,51 +130,51 @@ export default function PredictiveAnalyticsView() {
 
       {/* Analytics KPI Overview */}
       {forecast && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="gcp-card p-4 space-y-1">
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Predicted Days to Stockout</span>
-            <div className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="gcp-card p-3 sm:p-4 space-y-1">
+            <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold truncate block">Days to Stockout</span>
+            <div className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
               {forecast.predictedDaysUntilStockout} Days
             </div>
-            <p className="text-[11px] text-[#EA4335] dark:text-[#F28B82] font-medium">
-              {forecast.predictedDaysUntilStockout < 7 ? 'Critical Buffer Breach Imminent' : 'Buffer Nominal'}
+            <p className="text-[10px] sm:text-[11px] text-[#EA4335] dark:text-[#F28B82] font-medium truncate">
+              {forecast.predictedDaysUntilStockout < 7 ? 'Breach Imminent' : 'Nominal'}
             </p>
           </div>
 
-          <div className="gcp-card p-4 space-y-1">
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Projected 30d Consumption</span>
-            <div className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+          <div className="gcp-card p-3 sm:p-4 space-y-1">
+            <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold truncate block">30d Demand</span>
+            <div className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
               {forecast.projected30DayDemand} Units
             </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              Confidence Interval: 95%
+            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              CI: 95%
             </p>
           </div>
 
-          <div className="gcp-card p-4 space-y-1">
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Current On-Hand Buffer</span>
-            <div className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+          <div className="gcp-card p-3 sm:p-4 space-y-1">
+            <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold truncate block">On-Hand Buffer</span>
+            <div className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
               {forecast.currentStock} Units
             </div>
-            <p className="text-[11px] text-[#188038] dark:text-[#81C995] font-medium">
-              Lead Time Buffer: ~{Math.round(forecast.currentStock / 4)} Days
+            <p className="text-[10px] sm:text-[11px] text-[#188038] dark:text-[#81C995] font-medium truncate">
+              Buffer: ~{Math.round(forecast.currentStock / 4)}d
             </p>
           </div>
 
-          <div className="gcp-card p-4 space-y-1">
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Recommended Replenishment</span>
-            <div className="text-2xl font-bold text-[#1A73E8] dark:text-[#8AB4F8] tabular-nums font-mono">
+          <div className="gcp-card p-3 sm:p-4 space-y-1">
+            <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold truncate block">Recommended Order</span>
+            <div className="text-xl sm:text-2xl font-bold text-[#1A73E8] dark:text-[#8AB4F8] tabular-nums font-mono">
               +{forecast.recommendedOrderQuantity} Units
             </div>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              Auto-Trigger Rebalance Match
+            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              Auto Rebalance
             </p>
           </div>
         </div>
       )}
 
       {/* Main Chart */}
-      <div className="gcp-card p-5 space-y-4">
+      <div className="gcp-card p-3.5 sm:p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center space-x-2">
@@ -187,7 +187,7 @@ export default function PredictiveAnalyticsView() {
           </div>
         </div>
 
-        <div className="h-[360px] w-full pt-4">
+        <div className="h-[280px] sm:h-[360px] w-full pt-2 sm:pt-4">
           {loading ? (
             <div className="h-full flex items-center justify-center text-xs text-slate-500">
               Generating ARIMA Time-Series forecast...

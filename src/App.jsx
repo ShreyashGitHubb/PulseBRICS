@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppProvider } from './context/AppContext.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import TopHeader from './components/TopHeader.jsx';
+import MobileBottomBar from './components/Navigation/MobileBottomBar.jsx';
 
 // Views
 import EnterpriseOverview from './components/Dashboard/EnterpriseOverview.jsx';
@@ -27,17 +28,17 @@ function MainApp() {
   return (
     <div className="min-h-screen flex bg-[#F8F9FA] dark:bg-[#090D16] text-slate-800 dark:text-slate-100 selection:bg-[#1A73E8] selection:text-white transition-colors duration-200">
       
-      {/* Left Enterprise Sidebar */}
+      {/* Left Enterprise Sidebar (Desktop Sticky + Mobile Drawer) */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Right Content Panel */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden pb-16 md:pb-0">
         
         {/* Top Header Controls */}
         <TopHeader activeTab={activeTab} />
 
         {/* Dynamic Main Workspace */}
-        <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-3 sm:p-6 max-w-7xl w-full mx-auto">
           {activeTab === 'OVERVIEW' && <EnterpriseOverview setActiveTab={setActiveTab} />}
           {activeTab === 'FACILITIES' && <PHCDataTable />}
           {activeTab === 'MAP' && <HealthGeoMap />}
@@ -56,8 +57,11 @@ function MainApp() {
         <GuidedTourModal setActiveTab={setActiveTab} />
         <PitchDeckModal />
 
+        {/* Mobile Bottom Navigation Bar */}
+        <MobileBottomBar activeTab={activeTab} setActiveTab={setActiveTab} />
+
         {/* Footer */}
-        <footer className="border-t border-[#DADCE0] dark:border-slate-800/80 bg-white dark:bg-[#0B0F19] py-4 px-6 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2 transition-colors">
+        <footer className="border-t border-[#DADCE0] dark:border-slate-800/80 bg-white dark:bg-[#0B0F19] py-4 px-6 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-2 transition-colors hidden md:flex">
           <div className="flex items-center space-x-2">
             <span className="font-semibold text-slate-700 dark:text-slate-300">PulseBRICS Health Mesh</span>
             <span>•</span>

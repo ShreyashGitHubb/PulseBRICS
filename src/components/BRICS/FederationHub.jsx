@@ -20,37 +20,37 @@ export default function FederationHub() {
     <div className="space-y-6">
       
       {/* Initiative Header */}
-      <div className="gcp-card p-6 rounded-3xl space-y-3 relative overflow-hidden border-l-4 border-l-[#1A73E8]">
+      <div className="gcp-card p-4 sm:p-6 rounded-3xl space-y-3 relative overflow-hidden border-l-4 border-l-[#1A73E8]">
         <div className="flex items-center space-x-3">
-          <div className="p-3 bg-gradient-to-tr from-[#1A73E8] to-[#4285F4] rounded-2xl text-white shadow-lg shadow-blue-500/20">
-            <Globe2 className="w-7 h-7 animate-pulse" />
+          <div className="p-2.5 sm:p-3 bg-gradient-to-tr from-[#1A73E8] to-[#4285F4] rounded-2xl text-white shadow-lg shadow-blue-500/20 shrink-0">
+            <Globe2 className="w-6 h-6 sm:w-7 sm:h-7 animate-pulse" />
           </div>
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-semibold">BRICS 2026 Theme: Resilience & Cooperation</span>
+            <div className="flex items-center space-x-2 flex-wrap">
+              <span className="text-[11px] sm:text-xs font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-semibold">BRICS 2026 Theme</span>
               <span className="text-xs text-slate-400">•</span>
-              <span className="text-xs text-[#188038] dark:text-[#81C995] font-mono">Digital Public Good (DPG)</span>
+              <span className="text-[11px] sm:text-xs text-[#188038] dark:text-[#81C995] font-mono">Digital Public Good (DPG)</span>
             </div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
-              Federated Cross-Border Health Intelligence & Resilience Mesh
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+              Federated Health Intelligence & Resilience Mesh
             </h2>
           </div>
         </div>
 
         <p className="text-xs text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
           Diseases and global supply shocks don't stop at national borders. 
-          <strong> PulseBRICS</strong> enables member nations (India, Brazil, South Africa, Russia, China, and expanding partners) to share 
+          <strong> PulseBRICS</strong> enables member nations (India, Brazil, South Africa, Russia, China) to share 
           <strong> privacy-preserving syndromic telemetry</strong>, calibrate seasonal buffer stocks, and optimize cold-chain resilience without exposing confidential citizen health records.
         </p>
 
-        <div className="flex items-center space-x-4 pt-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex items-center space-x-3 sm:space-x-4 pt-1 sm:pt-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 flex-wrap gap-2">
           <div className="flex items-center space-x-1.5 text-slate-700 dark:text-slate-300">
-            <Lock className="w-4 h-4 text-[#1A73E8] dark:text-[#8AB4F8]" />
-            <span>Differential Privacy & FHIR Compliant</span>
+            <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#1A73E8] dark:text-[#8AB4F8]" />
+            <span>Differential Privacy & FHIR</span>
           </div>
           <div className="flex items-center space-x-1.5 text-slate-700 dark:text-slate-300">
-            <Layers className="w-4 h-4 text-[#188038] dark:text-[#81C995]" />
-            <span>OpenLMIS & NDHM Interoperable</span>
+            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#188038] dark:text-[#81C995]" />
+            <span>OpenLMIS & NDHM Ready</span>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function FederationHub() {
           <span>Cross-Border Health Supply Chain Impact Benchmarks</span>
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {bricsBenchmarks.map((bench, idx) => (
             <div
               key={idx}

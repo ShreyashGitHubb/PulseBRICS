@@ -7,14 +7,15 @@ import {
   Truck, 
   TrendingUp, 
   Globe2, 
-  Cloud,
-  Cpu,
-  Layers,
-  Sparkles,
-  Presentation,
-  Compass,
-  Sun,
-  Moon
+  Cloud, 
+  Cpu, 
+  Layers, 
+  Sparkles, 
+  Presentation, 
+  Compass, 
+  Sun, 
+  Moon,
+  X
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
@@ -25,7 +26,9 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     setGuidedTourOpen,
     setPitchDeckOpen,
     theme,
-    toggleTheme
+    toggleTheme,
+    mobileMenuOpen,
+    setMobileMenuOpen
   } = useApp();
 
   const criticalCount = phcNodes.filter(n => n.riskStatus === 'CRITICAL_SURGE' || n.resilienceScore < 50).length;
@@ -73,12 +76,19 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     }
   ];
 
-  return (
-    <aside className="w-64 bg-white dark:bg-[#1E1F20] border-r border-[#DADCE0] dark:border-[#3C4043] flex flex-col justify-between shrink-0 h-screen sticky top-0 transition-colors duration-200">
+  const handleNavClick = (tabId) => {
+    setActiveTab(tabId);
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+
+  const sidebarContent = (
+    <div className="w-64 bg-white dark:bg-[#1E1F20] border-r border-[#DADCE0] dark:border-[#3C4043] flex flex-col justify-between shrink-0 h-full transition-colors duration-200">
       
       {/* Brand Header */}
       <div>
-        <div className="p-4 border-b border-[#DADCE0] dark:border-[#3C4043]">
+        <div className="p-4 border-b border-[#DADCE0] dark:border-[#3C4043] flex items-center justify-between">
           <div className="flex items-center space-x-3">
             
             {/* Google 4-Color Brand Symbol */}
@@ -101,6 +111,16 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               <p className="text-[10px] text-slate-500 dark:text-slate-400">Code for Communities 2026</p>
             </div>
           </div>
+
+          {/* Mobile Close Button */}
+          {mobileMenuOpen && (
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="md:hidden p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-[#F1F3F4] dark:bg-[#28292A]"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
         </div>
 
         {/* Navigation List */}
@@ -116,15 +136,15 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                onClick={() => handleNavClick(item.id)}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   isActive
                     ? 'bg-[#1A73E8]/10 dark:bg-[#1A73E8]/15 text-[#1A73E8] dark:text-[#8AB4F8] font-semibold border border-[#1A73E8]/30 shadow-sm'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-[#F1F3F4] dark:hover:bg-[#28292A]'
+                    : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-[#F1F3F4] dark:hover:bg-[#28292A]'
                 }`}
               >
                 <div className="flex items-center space-x-2.5">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#1A73E8] dark:text-[#8AB4F8]' : 'text-slate-400 dark:text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#1A73E8] dark:text-[#8AB4F8]' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                 </div>
 
@@ -138,51 +158,89 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               </button>
             );
           })}
-
-          {/* Quick Presentation Shortcuts */}
-          <div className="pt-3 px-3">
-            <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
-              Pitch & Presentation
-            </div>
-            
-            <button
-              onClick={() => setGuidedTourOpen(true)}
-              className="w-full flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-medium text-amber-700 dark:text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all cursor-pointer mb-1"
-            >
-              <Compass className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span>1-Click Guided Demo</span>
-            </button>
-
-            <button
-              onClick={() => setPitchDeckOpen(true)}
-              className="w-full flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-300 bg-[#F1F3F4] dark:bg-[#28292A] border border-[#DADCE0] dark:border-[#3C4043] hover:text-slate-900 dark:hover:text-white hover:bg-[#E8EAED] dark:hover:bg-[#35363A] transition-all cursor-pointer"
-            >
-              <Presentation className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
-              <span>Official Pitch Deck</span>
-            </button>
-          </div>
-
         </nav>
       </div>
 
-      {/* Google Cloud Stack Footer */}
-      <div className="p-3.5 border-t border-[#DADCE0] dark:border-[#3C4043] bg-[#F8F9FA]/80 dark:bg-[#131314]/60 space-y-2 transition-colors">
-        <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
-          <span className="flex items-center space-x-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#34A853]"></span>
-            <span>Google Cloud Run</span>
-          </span>
-          <span className="font-mono text-slate-500 dark:text-slate-400">asia-south1</span>
+      {/* Footer / Quick Launch Hub */}
+      <div className="p-3 border-t border-[#DADCE0] dark:border-[#3C4043] space-y-2">
+        
+        {/* Quick Launch Buttons */}
+        <div className="grid grid-cols-2 gap-1.5">
+          <button
+            onClick={() => { setGuidedTourOpen(true); if (mobileMenuOpen) setMobileMenuOpen(false); }}
+            className="p-2 rounded-lg bg-[#F8F9FA] hover:bg-[#F1F3F4] dark:bg-[#28292A] dark:hover:bg-[#35363A] text-slate-800 dark:text-slate-200 text-[11px] font-semibold border border-[#DADCE0] dark:border-[#3C4043] flex items-center justify-center space-x-1 transition-colors cursor-pointer"
+            title="Start Interactive Guided Walkthrough"
+          >
+            <Compass className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
+            <span>Guided Tour</span>
+          </button>
+
+          <button
+            onClick={() => { setPitchDeckOpen(true); if (mobileMenuOpen) setMobileMenuOpen(false); }}
+            className="p-2 rounded-lg bg-[#F8F9FA] hover:bg-[#F1F3F4] dark:bg-[#28292A] dark:hover:bg-[#35363A] text-slate-800 dark:text-slate-200 text-[11px] font-semibold border border-[#DADCE0] dark:border-[#3C4043] flex items-center justify-center space-x-1 transition-colors cursor-pointer"
+            title="Open 12-Slide Pitch Presentation"
+          >
+            <Presentation className="w-3.5 h-3.5 text-[#EA4335] dark:text-[#F28B82]" />
+            <span>Pitch Deck</span>
+          </button>
         </div>
-        <div className="p-2 rounded-lg bg-white dark:bg-[#28292A] border border-[#DADCE0] dark:border-[#3C4043] text-[11px] text-slate-700 dark:text-slate-300 flex items-center justify-between shadow-xs">
-          <div className="flex items-center space-x-1.5">
-            <Cpu className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
-            <span>Gemini 2.0 & BigQuery ML</span>
+
+        {/* 5-Nation BRICS Mesh Status */}
+        <div className="p-2.5 rounded-lg bg-[#F8F9FA] dark:bg-[#131314] border border-[#DADCE0] dark:border-[#3C4043] text-xs space-y-1">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+            <span className="flex items-center space-x-1">
+              <Sparkles className="w-3 h-3 text-[#FBBC04]" />
+              <span>Federated Grid</span>
+            </span>
+            <span className="text-[#188038] dark:text-[#81C995] font-mono font-semibold">5/5 Online</span>
           </div>
-          <span className="text-[#188038] dark:text-[#81C995] text-[10px] font-mono font-bold">READY</span>
+          <div className="flex items-center space-x-1 text-sm pt-0.5">
+            <span title="India (PHC)">🇮🇳</span>
+            <span title="Brazil (UBS)">🇧🇷</span>
+            <span title="South Africa (CHC)">🇿🇦</span>
+            <span title="Russia (FAP)">🇷🇺</span>
+            <span title="China (THC)">🇨🇳</span>
+          </div>
         </div>
+
+        {/* Theme Toggle in Sidebar */}
+        <button
+          onClick={toggleTheme}
+          className="w-full py-1.5 px-3 rounded-lg text-xs font-medium bg-[#F1F3F4] hover:bg-[#E8EAED] dark:bg-[#28292A] dark:hover:bg-[#35363A] text-slate-700 dark:text-slate-300 border border-[#DADCE0] dark:border-[#3C4043] flex items-center justify-between transition-colors cursor-pointer"
+        >
+          <span className="flex items-center space-x-2">
+            {theme === 'dark' ? <Moon className="w-3.5 h-3.5 text-[#1A73E8]" /> : <Sun className="w-3.5 h-3.5 text-[#FBBC04]" />}
+            <span>Theme: {theme === 'dark' ? 'Google Dark' : 'Google White'}</span>
+          </span>
+          <span className="text-[10px] font-mono text-slate-500">Toggle</span>
+        </button>
+
       </div>
 
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sticky Sidebar */}
+      <aside className="hidden md:flex h-screen sticky top-0 shrink-0 z-30">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 flex md:hidden animate-fadeIn">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          {/* Slide Drawer */}
+          <div className="relative z-10 h-full shadow-2xl animate-slideRight">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

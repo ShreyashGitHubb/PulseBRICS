@@ -47,6 +47,7 @@ export function AppProvider({ children }) {
   const [activeCrisisName, setActiveCrisisName] = useState(null);
   const [guidedTourOpen, setGuidedTourOpen] = useState(false);
   const [pitchDeckOpen, setPitchDeckOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Theme state: 'dark' | 'light'
   const [theme, setTheme] = useState(() => {
@@ -183,6 +184,8 @@ export function AppProvider({ children }) {
         setGuidedTourOpen,
         pitchDeckOpen,
         setPitchDeckOpen,
+        mobileMenuOpen,
+        setMobileMenuOpen,
         theme,
         toggleTheme,
         openVoiceModalFor,

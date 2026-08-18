@@ -12,7 +12,8 @@ import {
   Camera, 
   TrendingUp, 
   ChevronRight,
-  Shield
+  Shield,
+  SlidersHorizontal
 } from 'lucide-react';
 import PHCDetailDrawer from './PHCDetailDrawer.jsx';
 
@@ -62,8 +63,8 @@ export default function PHCDataTable() {
         </div>
 
         {/* Search and Filters */}
-        <div className="flex items-center space-x-2 flex-wrap gap-2">
-          <div className="relative w-64">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
+          <div className="relative w-full sm:w-60">
             <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -74,35 +75,43 @@ export default function PHCDataTable() {
             />
           </div>
 
-          <select
-            value={districtFilter}
-            onChange={(e) => setDistrictFilter(e.target.value)}
-            className="bg-white dark:bg-[#131314] text-xs text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
-          >
-            <option value="ALL">All Districts</option>
-            {districts.map(d => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <select
+              value={districtFilter}
+              onChange={(e) => setDistrictFilter(e.target.value)}
+              className="flex-1 sm:flex-initial bg-white dark:bg-[#131314] text-xs text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
+            >
+              <option value="ALL">All Districts</option>
+              {districts.map(d => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
 
-          <select
-            value={riskFilter}
-            onChange={(e) => setRiskFilter(e.target.value)}
-            className="bg-white dark:bg-[#131314] text-xs text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
-          >
-            <option value="ALL">All Risk Statuses</option>
-            <option value="CRITICAL_SURGE">Critical Surge</option>
-            <option value="WATCH">Watch</option>
-            <option value="SURPLUS_DONOR">Surplus Donor</option>
-            <option value="ADEQUATE">Adequate</option>
-          </select>
+            <select
+              value={riskFilter}
+              onChange={(e) => setRiskFilter(e.target.value)}
+              className="flex-1 sm:flex-initial bg-white dark:bg-[#131314] text-xs text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
+            >
+              <option value="ALL">All Risk Statuses</option>
+              <option value="CRITICAL_SURGE">Critical Surge</option>
+              <option value="WATCH">Watch</option>
+              <option value="SURPLUS_DONOR">Surplus Donor</option>
+              <option value="ADEQUATE">Adequate</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Google Cloud Style High-Density Data Table */}
       <div className="gcp-card overflow-hidden">
+        {/* Mobile Swipe Hint */}
+        <div className="sm:hidden px-3 py-1.5 bg-[#F8F9FA] dark:bg-[#131314] text-[10px] text-slate-500 dark:text-slate-400 border-b border-[#DADCE0] dark:border-[#3C4043] flex items-center justify-between">
+          <span>👈 Swipe horizontally to view full clinical metrics</span>
+          <span className="font-mono font-bold text-[#1A73E8]">{filtered.length} nodes</span>
+        </div>
+
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[700px]">
             <thead className="bg-[#F1F3F4] dark:bg-[#131314] text-slate-700 dark:text-slate-400 font-semibold border-b border-[#DADCE0] dark:border-[#3C4043] uppercase tracking-wider text-[10px]">
               <tr>
                 <th className="py-3 px-4">Facility ID & Name</th>

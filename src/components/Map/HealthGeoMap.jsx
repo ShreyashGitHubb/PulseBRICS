@@ -153,7 +153,7 @@ export default function HealthGeoMap() {
         </div>
 
         {/* Legend */}
-        <div className="flex items-center space-x-3 text-xs bg-[#F1F3F4] dark:bg-[#131314] px-3.5 py-1.5 rounded-xl border border-[#DADCE0] dark:border-[#3C4043]">
+        <div className="flex items-center flex-wrap gap-2 sm:gap-3 text-[11px] sm:text-xs bg-[#F1F3F4] dark:bg-[#131314] px-3 sm:px-3.5 py-1.5 rounded-xl border border-[#DADCE0] dark:border-[#3C4043]">
           <div className="flex items-center space-x-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#EA4335] animate-ping" />
             <span className="text-[#EA4335] dark:text-[#F28B82] font-semibold">Critical Deficit</span>
@@ -174,7 +174,7 @@ export default function HealthGeoMap() {
       </div>
 
       {/* Interactive Map Container */}
-      <div className="gcp-card rounded-2xl overflow-hidden h-[620px] relative shadow-lg">
+      <div className="gcp-card rounded-2xl overflow-hidden h-[380px] sm:h-[500px] md:h-[620px] relative shadow-lg">
         <MapContainer
           key={theme}
           center={[selectedCountry.lat, selectedCountry.lng]}
