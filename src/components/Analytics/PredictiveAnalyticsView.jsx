@@ -24,13 +24,15 @@ import {
 import { fetchDemandForecast } from '../../services/api.js';
 
 export default function PredictiveAnalyticsView() {
-  const { phcNodes, medicines, selectedCountry } = useApp();
+  const { phcNodes, medicines, selectedCountry, theme } = useApp();
 
   const [selectedPHCId, setSelectedPHCId] = useState(phcNodes[0]?.id || 'PHC-IN-001');
   const [selectedMedId, setSelectedMedId] = useState('MED-01');
   const [surgeMultiplier, setSurgeMultiplier] = useState(1.0);
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     loadForecast();
@@ -58,16 +60,16 @@ export default function PredictiveAnalyticsView() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
             Vertex AI & BigQuery ML Predictive Demand Cockpit
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Time-Series ARIMA_PLUS Models factoring in Monsoon Rainfalls & Outbreak Multipliers
           </p>
         </div>
 
-        <div className="flex items-center space-x-2 text-xs font-mono bg-[#1E1F20] px-3 py-1.5 rounded-lg border border-[#3C4043] text-slate-200">
-          <Cpu className="w-3.5 h-3.5 text-[#8AB4F8]" />
+        <div className="flex items-center space-x-2 text-xs font-mono bg-[#F1F3F4] dark:bg-[#1E1F20] px-3 py-1.5 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] text-slate-800 dark:text-slate-200">
+          <Cpu className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
           <span>Model: ARIMA_PLUS_ENSEMBLE (CI₉₅)</span>
         </div>
       </div>
@@ -77,11 +79,11 @@ export default function PredictiveAnalyticsView() {
         
         {/* Facility Selector */}
         <div className="space-y-1">
-          <label className="text-[11px] font-semibold text-slate-400">Target Facility:</label>
+          <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Target Facility:</label>
           <select
             value={selectedPHCId}
             onChange={(e) => setSelectedPHCId(e.target.value)}
-            className="w-full bg-[#131314] text-xs text-slate-200 p-2 rounded-lg border border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
+            className="w-full bg-white dark:bg-[#131314] text-xs text-slate-900 dark:text-slate-200 p-2 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
           >
             {phcNodes.map(phc => (
               <option key={phc.id} value={phc.id}>
@@ -93,136 +95,154 @@ export default function PredictiveAnalyticsView() {
 
         {/* Medicine Selector */}
         <div className="space-y-1">
-          <label className="text-[11px] font-semibold text-slate-400">Essential Drug / Vaccine:</label>
+          <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Essential Drug / Vaccine:</label>
           <select
             value={selectedMedId}
             onChange={(e) => setSelectedMedId(e.target.value)}
-            className="w-full bg-[#131314] text-xs text-slate-200 p-2 rounded-lg border border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
+            className="w-full bg-white dark:bg-[#131314] text-xs text-slate-900 dark:text-slate-200 p-2 rounded-lg border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] cursor-pointer"
           >
-            {medicines.map(m => (
-              <option key={m.id} value={m.id}>
-                {m.name} ({m.unit}) {m.isColdChain ? '❄️ 2°-8°C' : ''}
+            {medicines.map(med => (
+              <option key={med.id} value={med.id}>
+                {med.name} {med.isColdChain ? '❄️ 2°-8°C' : ''}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Surge Multiplier Slider */}
+        {/* Outbreak / Flood Risk Slider */}
         <div className="space-y-1">
-          <div className="flex justify-between text-[11px]">
-            <span className="text-slate-400">Outbreak Surge Factor:</span>
-            <span className="font-mono font-bold text-[#8AB4F8]">{surgeMultiplier}x Demand Rate</span>
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="font-semibold text-slate-600 dark:text-slate-400">Outbreak Surge Factor:</span>
+            <span className="font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-bold">{surgeMultiplier}x Demand Rate</span>
           </div>
           <input
             type="range"
-            min="1.0"
-            max="3.5"
-            step="0.25"
+            min="0.5"
+            max="3.0"
+            step="0.1"
             value={surgeMultiplier}
             onChange={(e) => setSurgeMultiplier(parseFloat(e.target.value))}
-            className="w-full h-1.5 bg-[#131314] rounded-lg appearance-none cursor-pointer accent-[#1A73E8]"
+            className="w-full h-1.5 bg-[#E8EAED] dark:bg-[#28292A] rounded-lg appearance-none cursor-pointer accent-[#1A73E8]"
           />
         </div>
 
       </div>
 
-      {/* KPI Metrics */}
+      {/* Analytics KPI Overview */}
       {forecast && (
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <div className="gcp-card p-4 space-y-1 border-t-2 border-t-[#4285F4]">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Current Stock</span>
-            <div className="text-xl font-bold font-mono text-white tabular-nums">
-              {forecast.currentStock} <span className="text-xs font-normal text-slate-400">{forecast.unit}</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="gcp-card p-4 space-y-1">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Predicted Days to Stockout</span>
+            <div className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+              {forecast.predictedDaysUntilStockout} Days
             </div>
-            <p className="text-[10px] text-slate-400">Live inventory balance</p>
+            <p className="text-[11px] text-[#EA4335] dark:text-[#F28B82] font-medium">
+              {forecast.predictedDaysUntilStockout < 7 ? 'Critical Buffer Breach Imminent' : 'Buffer Nominal'}
+            </p>
           </div>
 
-          <div className={`gcp-card p-4 space-y-1 border-t-2 border-t-[#EA4335] ${
-            forecast.stockoutCritical ? 'bg-[#EA4335]/5' : ''
-          }`}>
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Projected Depletion</span>
-            <div className="text-xl font-bold font-mono tabular-nums flex items-center space-x-1.5 text-[#F28B82]">
-              <Clock className="w-4 h-4" />
-              <span>{forecast.daysUntilStockout} {typeof forecast.daysUntilStockout === 'number' ? 'Days' : ''}</span>
+          <div className="gcp-card p-4 space-y-1">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Projected 30d Consumption</span>
+            <div className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+              {forecast.projected30DayDemand} Units
             </div>
-            <p className="text-[10px] text-slate-400">Moving burn rate</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              Confidence Interval: 95%
+            </p>
           </div>
 
-          <div className="gcp-card p-4 space-y-1 border-t-2 border-t-[#34A853]">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Recommended Buffer Order</span>
-            <div className="text-xl font-bold font-mono text-[#81C995] tabular-nums">
-              +{forecast.recommendedReorderQuantity} <span className="text-xs font-normal text-slate-400">{forecast.unit}</span>
+          <div className="gcp-card p-4 space-y-1">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Current On-Hand Buffer</span>
+            <div className="text-2xl font-bold text-slate-900 dark:text-white tabular-nums font-mono">
+              {forecast.currentStock} Units
             </div>
-            <p className="text-[10px] text-slate-400">30-day safety floor</p>
+            <p className="text-[11px] text-[#188038] dark:text-[#81C995] font-medium">
+              Lead Time Buffer: ~{Math.round(forecast.currentStock / 4)} Days
+            </p>
           </div>
 
-          <div className="gcp-card p-4 space-y-1 border-t-2 border-t-[#FBBC04]">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Model Confidence</span>
-            <div className="text-xl font-bold font-mono text-[#FDD663] tabular-nums">
-              94.8%
+          <div className="gcp-card p-4 space-y-1">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Recommended Replenishment</span>
+            <div className="text-2xl font-bold text-[#1A73E8] dark:text-[#8AB4F8] tabular-nums font-mono">
+              +{forecast.recommendedOrderQuantity} Units
             </div>
-            <p className="text-[10px] text-slate-400">Vertex AI Validation</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              Auto-Trigger Rebalance Match
+            </p>
           </div>
         </div>
       )}
 
-      {/* Chart Section */}
-      <div className="gcp-card p-5 space-y-3">
-        <div className="flex items-center justify-between text-xs text-slate-400">
-          <span className="font-semibold text-slate-200">
-            30-Day Forward Trajectory for {forecast?.medicineName} at {currentPHC?.name}
-          </span>
-          <span className="text-[11px] font-mono text-[#8AB4F8]">
-            Shaded Area: 95% Confidence Band (CI₉₅)
-          </span>
+      {/* Main Chart */}
+      <div className="gcp-card p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+              <TrendingUp className="w-4 h-4 text-[#1A73E8] dark:text-[#8AB4F8]" />
+              <span>30-Day Predictive Trajectory (Historical vs ARIMA_PLUS Upper/Lower Bound)</span>
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Blue fill represents 95% confidence interval bound. Red line indicates safety threshold stockout line.
+            </p>
+          </div>
         </div>
 
-        <div className="h-80 w-full pt-2">
-          {forecast && forecast.forecastSeries ? (
+        <div className="h-[360px] w-full pt-4">
+          {loading ? (
+            <div className="h-full flex items-center justify-center text-xs text-slate-500">
+              Generating ARIMA Time-Series forecast...
+            </div>
+          ) : forecast && forecast.timeSeries ? (
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={forecast.forecastSeries} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#1A73E8" stopOpacity={0.35}/>
-                    <stop offset="95%" stopColor="#1A73E8" stopOpacity={0.0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="displayDate" stroke="#5F6368" fontSize={11} tickLine={false} />
-                <YAxis stroke="#5F6368" fontSize={11} tickLine={false} />
+              <ComposedChart data={forecast.timeSeries}>
+                <XAxis 
+                  dataKey="date" 
+                  tick={{ fontSize: 10, fill: isDark ? '#9AA0A6' : '#5F6368' }} 
+                  axisLine={{ stroke: isDark ? '#3C4043' : '#DADCE0' }}
+                />
+                <YAxis 
+                  tick={{ fontSize: 10, fill: isDark ? '#9AA0A6' : '#5F6368' }} 
+                  axisLine={{ stroke: isDark ? '#3C4043' : '#DADCE0' }}
+                />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#1E1F20', 
-                    borderColor: '#3C4043',
-                    borderRadius: '0.5rem',
+                    backgroundColor: isDark ? '#1E1F20' : '#FFFFFF', 
+                    borderColor: isDark ? '#3C4043' : '#DADCE0',
+                    color: isDark ? '#FFFFFF' : '#202124',
+                    borderRadius: '8px',
                     fontSize: '11px',
-                    color: '#E8EAED'
-                  }}
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }} 
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-                
-                <ReferenceLine 
-                  y={forecast.forecastSeries[0]?.safeThreshold || 20} 
-                  stroke="#EA4335" 
-                  strokeDasharray="4 4" 
-                  label={{ value: 'Min Safe Buffer', fill: '#EA4335', fontSize: 10, position: 'right' }} 
-                />
-
-                <Bar dataKey="dailyConsumption" name="Daily Burn Rate" fill="#8AB4F8" opacity={0.6} barSize={8} />
-
+                <ReferenceLine y={15} stroke="#EA4335" strokeDasharray="3 3" label={{ value: 'Safety Threshold', fill: '#EA4335', fontSize: 10 }} />
                 <Area 
                   type="monotone" 
-                  dataKey="projectedStock" 
-                  name="Projected Physical Stock" 
-                  stroke="#4285F4" 
-                  strokeWidth={2.5}
-                  fillOpacity={1} 
-                  fill="url(#chartGradient)" 
+                  dataKey="upperBound" 
+                  stroke="none" 
+                  fill="#4285F4" 
+                  fillOpacity={0.15} 
+                  name="ARIMA Upper CI (95%)" 
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="predictedDemand" 
+                  stroke="#1A73E8" 
+                  strokeWidth={2.5} 
+                  fill="none" 
+                  name="Forecasted Consumption" 
+                />
+                <Bar 
+                  dataKey="historicalUsage" 
+                  fill="#34A853" 
+                  opacity={0.7} 
+                  name="Actual Historical Usage" 
                 />
               </ComposedChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-full text-slate-500 text-xs">
-              Loading predictive demand models...
+            <div className="h-full flex items-center justify-center text-xs text-slate-500">
+              No time-series telemetry available.
             </div>
           )}
         </div>

@@ -119,13 +119,11 @@ export default function VoiceLogModal() {
           recognitionRef.current.start();
           setIsRecording(true);
         } catch (err) {
-          console.warn('Could not start speech recognition directly:', err);
-          // Fallback simulation for devices without mic permissions
+          console.warn('Recognition start exception, using simulate timer:', err);
           setIsRecording(true);
-          setTimeout(() => setIsRecording(false), 3000);
+          setTimeout(() => setIsRecording(false), 4000);
         }
       } else {
-        // Fallback simulation
         setIsRecording(true);
         setTimeout(() => setIsRecording(false), 2500);
       }
@@ -172,8 +170,8 @@ export default function VoiceLogModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-[#1E1F20] border border-[#3C4043] w-full max-w-2xl rounded-2xl p-6 shadow-2xl space-y-5 relative max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+      <div className="bg-white dark:bg-[#1E1F20] border border-[#DADCE0] dark:border-[#3C4043] w-full max-w-2xl rounded-2xl p-6 shadow-2xl space-y-5 relative max-h-[92vh] overflow-y-auto transition-colors">
         
         {/* Close Button */}
         <button
@@ -183,7 +181,7 @@ export default function VoiceLogModal() {
             }
             setVoiceModalOpen(false);
           }}
-          className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg bg-[#28292A] hover:bg-[#35363A]"
+          className="absolute top-5 right-5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white p-1 rounded-lg bg-[#F1F3F4] hover:bg-[#E8EAED] dark:bg-[#28292A] dark:hover:bg-[#35363A] transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -195,32 +193,32 @@ export default function VoiceLogModal() {
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono text-[#8AB4F8] font-bold">{selectedPHC.id}</span>
-              <span className="text-slate-500">•</span>
-              <span className="text-xs text-slate-300">{selectedPHC.district}</span>
-              <span className="text-slate-500">•</span>
-              <span className="text-[11px] font-mono px-2 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              <span className="text-xs font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-bold">{selectedPHC.id}</span>
+              <span className="text-slate-400">•</span>
+              <span className="text-xs text-slate-600 dark:text-slate-300">{selectedPHC.district}</span>
+              <span className="text-slate-400">•</span>
+              <span className="text-[11px] font-mono px-2 py-0.2 rounded bg-emerald-500/10 text-[#188038] dark:text-emerald-400 border border-emerald-500/30">
                 Gemini 2.0 Multilingual Audio
               </span>
             </div>
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
               Multilingual Voice Logging — {selectedPHC.name}
             </h2>
           </div>
         </div>
 
-        <p className="text-xs text-slate-300">
+        <p className="text-xs text-slate-600 dark:text-slate-300">
           Enables rural frontline health workers (nurses, pharmacists, ASHA community workers) to speak naturally in native BRICS dialects without typing.
         </p>
 
         {/* Preset Selector */}
         <div className="space-y-2">
-          <div className="text-xs text-slate-400 font-semibold flex items-center justify-between">
+          <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold flex items-center justify-between">
             <div className="flex items-center space-x-1">
-              <Languages className="w-3.5 h-3.5 text-[#8AB4F8]" />
+              <Languages className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
               <span>Select Sample Dialect Audio or Dictate Live:</span>
             </div>
-            <span className="text-[11px] text-slate-400 font-mono">
+            <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
               {speechSupported ? '🎙️ Live Mic Active' : '⚡ Smart Presets'}
             </span>
           </div>
@@ -235,14 +233,14 @@ export default function VoiceLogModal() {
                   setTranscript(preset.text);
                   setExtractedResult(null);
                 }}
-                className={`p-2.5 rounded-xl text-left text-xs border transition-all ${
+                className={`p-2.5 rounded-xl text-left text-xs border transition-all cursor-pointer ${
                   selectedPresetIndex === idx
-                    ? 'bg-[#1A73E8]/15 border-[#1A73E8] text-white shadow-sm'
-                    : 'bg-[#28292A] border-[#3C4043] text-slate-300 hover:border-[#5F6368]'
+                    ? 'bg-[#1A73E8]/10 border-[#1A73E8] text-[#1A73E8] dark:text-white shadow-sm font-semibold'
+                    : 'bg-[#F8F9FA] dark:bg-[#28292A] border-[#DADCE0] dark:border-[#3C4043] text-slate-700 dark:text-slate-300 hover:border-[#1A73E8]'
                 }`}
               >
                 <div className="font-semibold truncate text-[11px]">{preset.language}</div>
-                <div className="text-[10px] text-slate-400 truncate mt-0.5">{preset.text}</div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">{preset.text}</div>
               </button>
             ))}
           </div>
@@ -256,13 +254,13 @@ export default function VoiceLogModal() {
               value={transcript}
               onChange={(e) => setTranscript(e.target.value)}
               placeholder="Speak via microphone or edit the transcribed text..."
-              className="w-full bg-[#131314] text-xs text-slate-100 p-3.5 pr-14 rounded-xl border border-[#3C4043] focus:outline-none focus:border-[#1A73E8] font-sans leading-relaxed"
+              className="w-full bg-[#F8F9FA] dark:bg-[#131314] text-xs text-slate-900 dark:text-slate-100 p-3.5 pr-14 rounded-xl border border-[#DADCE0] dark:border-[#3C4043] focus:outline-none focus:border-[#1A73E8] font-sans leading-relaxed"
             />
 
             {/* Mic Record Button with Audio Wave animation */}
             <button
               onClick={toggleRecording}
-              className={`absolute right-3 bottom-3 p-2.5 rounded-xl text-white shadow transition-all ${
+              className={`absolute right-3 bottom-3 p-2.5 rounded-xl text-white shadow transition-all cursor-pointer ${
                 isRecording 
                   ? 'bg-[#EA4335] shadow-lg shadow-red-500/50 ring-4 ring-red-500/30' 
                   : 'bg-[#1A73E8] hover:bg-[#1557B0]'
@@ -275,17 +273,17 @@ export default function VoiceLogModal() {
 
           {/* Equalizer Wave Indicator when recording */}
           {isRecording && (
-            <div className="p-2.5 rounded-xl bg-red-950/40 border border-red-500/40 flex items-center justify-between text-xs text-red-300 animate-fadeIn">
+            <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-300 dark:border-red-500/40 flex items-center justify-between text-xs text-red-700 dark:text-red-300 animate-fadeIn">
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
                 <span className="font-semibold">Live Listening ({VOICE_PRESETS[selectedPresetIndex]?.language.split(' ')[0]})...</span>
               </div>
               <div className="flex items-center space-x-1">
-                <span className="w-1 h-3 bg-red-400 animate-pulse"></span>
-                <span className="w-1 h-5 bg-red-400 animate-pulse delay-75"></span>
-                <span className="w-1 h-2 bg-red-400 animate-pulse delay-150"></span>
-                <span className="w-1 h-6 bg-red-400 animate-pulse delay-100"></span>
-                <span className="w-1 h-4 bg-red-400 animate-pulse delay-200"></span>
+                <span className="w-1 h-3 bg-red-500 animate-pulse"></span>
+                <span className="w-1 h-5 bg-red-500 animate-pulse delay-75"></span>
+                <span className="w-1 h-2 bg-red-500 animate-pulse delay-150"></span>
+                <span className="w-1 h-6 bg-red-500 animate-pulse delay-100"></span>
+                <span className="w-1 h-4 bg-red-500 animate-pulse delay-200"></span>
               </div>
             </div>
           )}
@@ -293,8 +291,8 @@ export default function VoiceLogModal() {
 
         {/* Action Controls */}
         <div className="flex items-center justify-between">
-          <div className="text-[11px] text-slate-400 flex items-center space-x-1.5">
-            <Radio className="w-3.5 h-3.5 text-[#8AB4F8]" />
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center space-x-1.5">
+            <Radio className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
             <span>Click Mic to speak or click Parse to run Gemini NLP</span>
           </div>
 
@@ -310,28 +308,28 @@ export default function VoiceLogModal() {
 
         {/* Extracted Structured Result Preview */}
         {extractedResult && (
-          <div className="p-4 rounded-xl bg-[#131314] border border-[#3C4043] space-y-3 animate-fadeIn">
-            <div className="flex items-center justify-between border-b border-[#3C4043] pb-2">
-              <span className="text-xs font-bold text-[#8AB4F8] flex items-center space-x-1.5">
-                <CheckCircle2 className="w-4 h-4 text-[#81C995]" />
+          <div className="p-4 rounded-xl bg-[#F8F9FA] dark:bg-[#131314] border border-[#DADCE0] dark:border-[#3C4043] space-y-3 animate-fadeIn">
+            <div className="flex items-center justify-between border-b border-[#DADCE0] dark:border-[#3C4043] pb-2">
+              <span className="text-xs font-bold text-[#1A73E8] dark:text-[#8AB4F8] flex items-center space-x-1.5">
+                <CheckCircle2 className="w-4 h-4 text-[#188038] dark:text-[#81C995]" />
                 <span>Extracted Structured FHIR Inventory</span>
               </span>
-              <span className="text-[10px] font-mono bg-[#1A73E8]/20 text-[#8AB4F8] px-2 py-0.5 rounded border border-[#1A73E8]/40">
+              <span className="text-[10px] font-mono bg-[#1A73E8]/10 text-[#1A73E8] dark:text-[#8AB4F8] px-2 py-0.5 rounded border border-[#1A73E8]/30 font-semibold">
                 Confidence: 98.4%
               </span>
             </div>
 
             <div className="space-y-1.5">
               {extractedResult.extractedUpdates?.map((up, i) => (
-                <div key={i} className="flex items-center justify-between text-xs p-2 bg-[#1E1F20] rounded-lg border border-[#3C4043]">
+                <div key={i} className="flex items-center justify-between text-xs p-2.5 bg-white dark:bg-[#1E1F20] rounded-lg border border-[#DADCE0] dark:border-[#3C4043]">
                   <div>
-                    <span className="font-semibold text-white">{up.medicineName}</span>
-                    <span className="text-[10px] text-slate-400 ml-2">({up.medicineId})</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{up.medicineName}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 ml-2">({up.medicineId})</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="font-mono text-[#8AB4F8] font-bold">{up.currentStock} {up.unit}</span>
+                    <span className="font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-bold">{up.currentStock} {up.unit}</span>
                     <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                      up.urgency === 'CRITICAL_STOCKOUT' ? 'bg-[#EA4335]/20 text-[#F28B82]' : 'bg-[#28292A] text-slate-300'
+                      up.urgency === 'CRITICAL_STOCKOUT' ? 'bg-[#EA4335]/15 text-[#EA4335] dark:text-[#F28B82]' : 'bg-[#F1F3F4] dark:bg-[#28292A] text-slate-700 dark:text-slate-300'
                     }`}>
                       {up.urgency}
                     </span>
@@ -341,7 +339,7 @@ export default function VoiceLogModal() {
             </div>
 
             {extractedResult.aiSummary && (
-              <p className="text-[11px] text-slate-300 italic bg-[#1E1F20] p-2 rounded-lg border border-[#3C4043]">
+              <p className="text-[11px] text-slate-700 dark:text-slate-300 italic bg-white dark:bg-[#1E1F20] p-2.5 rounded-lg border border-[#DADCE0] dark:border-[#3C4043]">
                 💡 {extractedResult.aiSummary}
               </p>
             )}
@@ -351,7 +349,7 @@ export default function VoiceLogModal() {
               <button
                 onClick={handleConfirmAndSave}
                 disabled={savedSuccess}
-                className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#34A853] hover:bg-[#188038] text-white text-xs font-bold shadow transition-all cursor-pointer"
+                className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#188038] hover:bg-[#137333] text-white text-xs font-bold shadow transition-all cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{savedSuccess ? 'Saved to Health Grid!' : 'Confirm & Update Facility Registry'}</span>

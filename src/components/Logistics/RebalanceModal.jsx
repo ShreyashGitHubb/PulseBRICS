@@ -62,132 +62,133 @@ export default function RebalanceModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-      <div className="glass-panel w-full max-w-2xl rounded-3xl border border-slate-700 p-6 shadow-2xl space-y-5 relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+      <div className="bg-white dark:bg-[#1E1F20] w-full max-w-2xl rounded-3xl border border-[#DADCE0] dark:border-[#3C4043] p-6 shadow-2xl space-y-5 relative max-h-[90vh] overflow-y-auto transition-colors">
         
         {/* Close Button */}
         <button
           onClick={() => setRebalanceModalOpen(false)}
-          className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800 hover:bg-slate-700"
+          className="absolute top-5 right-5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white p-1 rounded-lg bg-[#F1F3F4] hover:bg-[#E8EAED] dark:bg-[#28292A] dark:hover:bg-[#35363A] transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header */}
         <div className="flex items-center space-x-3">
-          <div className="p-3 bg-gradient-to-tr from-rose-600 to-amber-600 rounded-2xl text-white shadow-lg shadow-rose-500/20">
+          <div className="p-3 bg-gradient-to-tr from-[#EA4335] to-[#FBBC04] rounded-2xl text-white shadow-lg shadow-red-500/20">
             <Truck className="w-6 h-6 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono text-cyan-400 font-semibold">{manifest?.manifestId || 'AUTONOMOUS-DISPATCH'}</span>
-              <span className="text-xs text-slate-400">•</span>
-              <span className="text-xs text-amber-400 font-medium">Gemini Agentic Rebalancer</span>
+              <span className="text-xs font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-bold">{manifest?.manifestId || 'AUTONOMOUS-DISPATCH'}</span>
+              <span className="text-slate-400">•</span>
+              <span className="text-xs text-[#E37400] dark:text-[#FDD663] font-medium">Gemini Agentic Rebalancer</span>
             </div>
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">
               Autonomous Cross-District Supply Rebalancing
             </h2>
           </div>
         </div>
 
         {/* Donor vs Recipient Visual Flow */}
-        <div className="grid grid-cols-1 sm:grid-cols-7 gap-3 items-center bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+        <div className="grid grid-cols-1 sm:grid-cols-7 gap-3 items-center bg-[#F8F9FA] dark:bg-[#131314] p-4 rounded-2xl border border-[#DADCE0] dark:border-[#3C4043]">
           
           {/* Donor Node */}
-          <div className="sm:col-span-3 p-3 rounded-xl bg-emerald-950/30 border border-emerald-800/60 space-y-1">
+          <div className="sm:col-span-3 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase">Surplus Donor Node</span>
-              <span className="text-[10px] bg-emerald-900/80 text-emerald-200 px-1.5 py-0.5 rounded">
-                Stock: {donorPHC.currentStock}
+              <span className="text-[10px] font-mono text-[#188038] dark:text-emerald-400 font-bold uppercase">Surplus Donor Node</span>
+              <span className="text-[10px] bg-emerald-100 dark:bg-emerald-900/80 text-emerald-800 dark:text-emerald-200 px-1.5 py-0.5 rounded font-mono">
+                {donorPHC.id}
               </span>
             </div>
-            <h4 className="text-xs font-bold text-white truncate">{donorPHC.name}</h4>
-            <p className="text-[11px] text-slate-400">{donorPHC.district} District</p>
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">{donorPHC.name}</h4>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400">{donorPHC.district}, {donorPHC.state}</p>
+            <div className="text-[11px] text-[#188038] dark:text-emerald-300 font-mono font-semibold pt-1">
+              Surplus: {donorPHC.currentStock} Units (FEFO Priority)
+            </div>
           </div>
 
-          {/* Transfer Quantity & Distance Arrow */}
-          <div className="sm:col-span-1 flex flex-col items-center justify-center text-center py-2 sm:py-0">
-            <span className="text-xs font-mono font-bold text-cyan-400">{transferQuantity}</span>
-            <span className="text-[9px] text-slate-400 font-mono">{medicine.unit}</span>
-            <ArrowRight className="w-4 h-4 text-cyan-400 my-0.5 hidden sm:block" />
-            <span className="text-[9px] text-slate-400 font-mono">{distanceKm} km</span>
+          {/* Transfer Indicator Arrow */}
+          <div className="sm:col-span-1 flex flex-col items-center justify-center text-[#1A73E8] dark:text-[#8AB4F8] py-1">
+            <span className="text-[10px] font-mono font-bold">{distanceKm} km</span>
+            <ArrowRight className="w-5 h-5 my-0.5 hidden sm:block" />
+            <span className="text-[10px] text-slate-500 dark:text-slate-400">~28 min</span>
           </div>
 
           {/* Recipient Node */}
-          <div className="sm:col-span-3 p-3 rounded-xl bg-rose-950/30 border border-rose-800/60 space-y-1">
+          <div className="sm:col-span-3 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800/60 space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase">Critical Deficit Recipient</span>
-              <span className="text-[10px] bg-rose-900/80 text-rose-200 px-1.5 py-0.5 rounded">
-                Deficit
+              <span className="text-[10px] font-mono text-[#EA4335] dark:text-rose-400 font-bold uppercase">Deficit Recipient Node</span>
+              <span className="text-[10px] bg-rose-100 dark:bg-rose-900/80 text-rose-800 dark:text-rose-200 px-1.5 py-0.5 rounded font-mono">
+                {recipientPHC.id}
               </span>
             </div>
-            <h4 className="text-xs font-bold text-white truncate">{recipientPHC.name}</h4>
-            <p className="text-[11px] text-slate-400">{recipientPHC.district} District</p>
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">{recipientPHC.name}</h4>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400">{recipientPHC.district}, {recipientPHC.state}</p>
+            <div className="text-[11px] text-[#EA4335] dark:text-rose-300 font-mono font-semibold pt-1">
+              Buffer Deficit: {recipientPHC.currentStock} Units
+            </div>
           </div>
 
         </div>
 
-        {/* Medicine & Cold Chain Specs */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-          <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 uppercase">Medicine</span>
-            <div className="font-semibold text-white truncate">{medicine.name}</div>
-          </div>
-          <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 uppercase">Cold Chain</span>
-            <div className="font-semibold text-blue-400 flex items-center space-x-1">
-              <ThermometerSnowflake className="w-3.5 h-3.5" />
-              <span>{medicine.isColdChain ? '2°C - 8°C Active' : 'Ambient'}</span>
+        {/* Transfer Manifest Breakdown */}
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold text-slate-900 dark:text-white flex items-center space-x-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#1A73E8] dark:text-[#8AB4F8]" />
+            <span>AI Dispatch Manifest & Chain of Custody</span>
+          </h3>
+
+          <div className="p-4 rounded-xl bg-[#F8F9FA] dark:bg-[#131314] border border-[#DADCE0] dark:border-[#3C4043] space-y-2 text-xs">
+            <div className="flex items-center justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Rebalance Material:</span>
+              <span className="font-semibold text-slate-900 dark:text-white">{medicine.name}</span>
             </div>
-          </div>
-          <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 uppercase">Travel ETA</span>
-            <div className="font-semibold text-cyan-400 flex items-center space-x-1">
-              <Clock className="w-3.5 h-3.5" />
-              <span>~{manifest?.estimatedTravelTimeMinutes || 28} mins</span>
+            <div className="flex items-center justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Allocated Transfer Quantity:</span>
+              <span className="font-mono text-[#1A73E8] dark:text-[#8AB4F8] font-bold">
+                {transferQuantity} {medicine.unit}
+              </span>
             </div>
-          </div>
-          <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-400 uppercase">Logistics Fleet</span>
-            <div className="font-semibold text-emerald-400 truncate">
-              {manifest?.logisticsMethod || 'Cold-Chain EV'}
+            <div className="flex items-center justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Cold Chain Thermal Requirement:</span>
+              <span className="font-mono text-[#188038] dark:text-[#81C995]">
+                {medicine.isColdChain ? '❄️ 2°C - 8°C Continuous ILR Protocol' : 'Room Temp (20-25°C)'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Transport Asset:</span>
+              <span className="font-mono text-slate-800 dark:text-slate-200">District EV Cold-Van #04 (Solar Buffered)</span>
             </div>
           </div>
         </div>
 
-        {/* Gemini AI Agent Reasoning Brief */}
-        <div className="p-4 rounded-2xl bg-slate-900 border border-cyan-900/60 space-y-2">
-          <div className="flex items-center space-x-1.5 text-xs font-bold text-cyan-300">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span>Gemini Autonomous Routing & FEFO Policy Analysis</span>
-          </div>
-          <p className="text-xs text-slate-300 leading-relaxed">
-            {manifest?.agentReasoning}
-          </p>
-          <div className="text-[11px] text-emerald-400 font-mono bg-emerald-950/40 p-2 rounded-xl border border-emerald-900/60">
-            ✅ {manifest?.fefoOptimization}
-          </div>
-        </div>
-
-        {/* Authorize Dispatch Action Bar */}
-        <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-          <span className="text-xs text-slate-400">
-            Requires District Medical Officer (DMO) Authorization
+        {/* Action Button */}
+        <div className="pt-2 flex items-center justify-between border-t border-[#DADCE0] dark:border-[#3C4043]">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400">
+            Compliant with NDHM / FHIR Logistics & Inter-State Health Protocols
           </span>
 
           <button
             onClick={handleAuthorize}
             disabled={authorizing || authorized}
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/20 disabled:opacity-50 transition-all"
+            className={`px-5 py-2.5 rounded-xl font-bold text-xs shadow-lg transition-all flex items-center space-x-2 cursor-pointer ${
+              authorized
+                ? 'bg-[#188038] text-white'
+                : 'bg-gradient-to-r from-[#1A73E8] to-[#4285F4] hover:from-[#1557B0] hover:to-[#1A73E8] text-white'
+            }`}
           >
-            <CheckCircle2 className="w-4 h-4" />
-            <span>
-              {authorized 
-                ? '✅ Dispatch Authorized & In Transit!' 
-                : authorizing 
-                ? 'Authorizing with Health Mesh...' 
-                : '1-Click Authorize & Dispatch'}
-            </span>
+            {authorized ? (
+              <>
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Corridor Authorized & Dispatched!</span>
+              </>
+            ) : (
+              <>
+                <Zap className="w-4 h-4 text-[#FBBC04]" />
+                <span>{authorizing ? 'Authorizing Dispatch...' : 'Authorize Autonomous Fleet Corridor'}</span>
+              </>
+            )}
           </button>
         </div>
 

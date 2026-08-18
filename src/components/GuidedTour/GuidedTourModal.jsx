@@ -24,8 +24,7 @@ const TOUR_STEPS = [
     badge: 'Edge Layer: Zero-Friction Logging',
     title: 'Multilingual Voice & Vision OCR Ingestion',
     icon: Mic,
-    color: 'from-blue-600 to-indigo-600',
-    borderColor: 'border-blue-500',
+    color: 'from-[#1A73E8] to-[#4285F4]',
     description: 'Rural primary care workers speak in native BRICS dialects (Hindi, Portuguese, Zulu, Russian, Mandarin) or snap shelf photos. Gemini 2.0 Multimodal normalizes messy input into FHIR-compliant inventory records in under 2 seconds.',
     actionLabel: 'Open Voice Logger Demo',
     actionType: 'VOICE_MODAL',
@@ -36,8 +35,7 @@ const TOUR_STEPS = [
     badge: 'Predictive Intelligence',
     title: 'Vertex AI & BigQuery ML 30-Day Surge Forecaster',
     icon: TrendingUp,
-    color: 'from-amber-600 to-yellow-600',
-    borderColor: 'border-yellow-500',
+    color: 'from-[#FBBC04] to-[#E37400]',
     description: 'Time-series ARIMA_PLUS demand forecasting integrates historical consumption with meteorological monsoon rainfall indices, flood alerts, and vector-breeding risk to project stockouts 14-30 days before shelves hit zero.',
     actionLabel: 'View Predictive Cockpit',
     actionType: 'NAVIGATE_ANALYTICS',
@@ -48,8 +46,7 @@ const TOUR_STEPS = [
     badge: 'Resilience Stress-Testing',
     title: 'Live Crisis Simulation Engine',
     icon: Zap,
-    color: 'from-red-600 to-orange-600',
-    borderColor: 'border-red-500',
+    color: 'from-[#EA4335] to-[#FBBC04]',
     description: 'Allows hackathon judges and health ministers to simulate extreme stress events (Monsoon Flash Floods, Dengue Serotype-3 Outbreaks, Power Grid Blackouts) to observe automated system self-healing.',
     actionLabel: 'Trigger Crisis Simulator',
     actionType: 'CRISIS_SIMULATOR',
@@ -60,8 +57,7 @@ const TOUR_STEPS = [
     badge: 'Autonomous Agentic Logistics',
     title: 'Gemini Agent Cold-Chain Redistribution Mesh',
     icon: Truck,
-    color: 'from-emerald-600 to-teal-600',
-    borderColor: 'border-emerald-500',
+    color: 'from-[#188038] to-[#34A853]',
     description: 'When a clinic faces an imminent stockout, the Gemini Agent matches with nearby facilities holding surplus stock nearing expiry (FEFO). It calculates cold-chain transit windows (2°C-8°C) and generates an automated transfer manifest in 1 click.',
     actionLabel: 'View Active Fleet Corridors',
     actionType: 'NAVIGATE_LOGISTICS',
@@ -72,8 +68,7 @@ const TOUR_STEPS = [
     badge: 'Cross-Border Digital Public Good',
     title: 'BRICS Differential Privacy Federation Hub',
     icon: Globe2,
-    color: 'from-cyan-600 to-blue-600',
-    borderColor: 'border-cyan-500',
+    color: 'from-[#1A73E8] to-[#34A853]',
     description: 'Enables sovereign BRICS health ministries (India, Brazil, South Africa, Russia, China) to share privacy-preserving syndromic telemetry and early vector warnings without exposing citizen patient data.',
     actionLabel: 'Open BRICS Federation Hub',
     actionType: 'NAVIGATE_FEDERATION',
@@ -140,8 +135,8 @@ export default function GuidedTourModal({ setActiveTab }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fadeIn">
-      <div className="bg-[#1E1F20] border border-[#3C4043] w-full max-w-2xl rounded-2xl p-6 shadow-2xl space-y-6 relative overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fadeIn">
+      <div className="bg-white dark:bg-[#1E1F20] border border-[#DADCE0] dark:border-[#3C4043] w-full max-w-2xl rounded-2xl p-6 shadow-2xl space-y-6 relative overflow-hidden transition-colors">
         
         {/* Top Accent Line */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC04] to-[#34A853]" />
@@ -149,7 +144,7 @@ export default function GuidedTourModal({ setActiveTab }) {
         {/* Close Button */}
         <button
           onClick={() => setGuidedTourOpen(false)}
-          className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg bg-[#28292A] hover:bg-[#35363A]"
+          className="absolute top-5 right-5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white p-1 rounded-lg bg-[#F1F3F4] hover:bg-[#E8EAED] dark:bg-[#28292A] dark:hover:bg-[#35363A] transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -157,12 +152,12 @@ export default function GuidedTourModal({ setActiveTab }) {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="text-[11px] font-mono font-bold bg-[#1A73E8]/20 text-[#8AB4F8] px-2.5 py-0.5 rounded border border-[#1A73E8]/30 flex items-center space-x-1">
+            <span className="text-[11px] font-mono font-bold bg-[#1A73E8]/10 text-[#1A73E8] dark:text-[#8AB4F8] px-2.5 py-0.5 rounded border border-[#1A73E8]/30 flex items-center space-x-1">
               <Sparkles className="w-3 h-3 text-[#FBBC04]" />
               <span>Judge Interactive Walkthrough</span>
             </span>
-            <span className="text-xs text-slate-500">•</span>
-            <span className="text-xs font-semibold text-slate-300">
+            <span className="text-xs text-slate-400">•</span>
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
               Step {currentStep.step} of {TOUR_STEPS.length}
             </span>
           </div>
@@ -173,10 +168,10 @@ export default function GuidedTourModal({ setActiveTab }) {
                 key={i}
                 className={`h-1.5 rounded-full transition-all ${
                   i === currentStepIndex 
-                    ? 'w-6 bg-[#4285F4]' 
+                    ? 'w-6 bg-[#1A73E8]' 
                     : i < currentStepIndex 
                     ? 'w-2 bg-[#34A853]' 
-                    : 'w-2 bg-[#3C4043]'
+                    : 'w-2 bg-[#DADCE0] dark:bg-[#3C4043]'
                 }`}
               />
             ))}
@@ -184,28 +179,28 @@ export default function GuidedTourModal({ setActiveTab }) {
         </div>
 
         {/* Main Card */}
-        <div className="p-5 rounded-xl bg-[#131314] border border-[#3C4043] space-y-4">
+        <div className="p-5 rounded-xl bg-[#F8F9FA] dark:bg-[#131314] border border-[#DADCE0] dark:border-[#3C4043] space-y-4">
           <div className="flex items-start space-x-3.5">
-            <div className={`p-3 rounded-xl bg-gradient-to-br ${currentStep.color} text-white shadow-lg shrink-0`}>
+            <div className={`p-3 rounded-xl bg-gradient-to-br ${currentStep.color} text-white shadow-md shrink-0`}>
               <StepIcon className="w-6 h-6" />
             </div>
             <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#8AB4F8]">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#1A73E8] dark:text-[#8AB4F8]">
                 {currentStep.badge}
               </span>
-              <h3 className="text-base font-bold text-white leading-snug">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug">
                 {currentStep.title}
               </h3>
             </div>
           </div>
 
-          <p className="text-xs text-slate-300 leading-relaxed">
+          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
             {currentStep.description}
           </p>
 
-          <div className="p-3 rounded-lg bg-[#1E1F20] border border-[#3C4043] flex items-center justify-between text-xs">
-            <span className="text-slate-400 font-semibold">Key Measured Impact:</span>
-            <span className="font-mono text-[#81C995] font-bold">{currentStep.keyMetric}</span>
+          <div className="p-3 rounded-lg bg-white dark:bg-[#1E1F20] border border-[#DADCE0] dark:border-[#3C4043] flex items-center justify-between text-xs">
+            <span className="text-slate-500 dark:text-slate-400 font-semibold">Key Measured Impact:</span>
+            <span className="font-mono text-[#188038] dark:text-[#81C995] font-bold">{currentStep.keyMetric}</span>
           </div>
         </div>
 
@@ -223,7 +218,7 @@ export default function GuidedTourModal({ setActiveTab }) {
             <button
               onClick={handlePrev}
               disabled={currentStepIndex === 0}
-              className="px-3.5 py-2 rounded-xl bg-[#28292A] hover:bg-[#35363A] disabled:opacity-30 text-slate-200 text-xs font-semibold border border-[#3C4043] flex items-center space-x-1 transition-colors cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-[#F1F3F4] hover:bg-[#E8EAED] dark:bg-[#28292A] dark:hover:bg-[#35363A] disabled:opacity-30 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-[#DADCE0] dark:border-[#3C4043] flex items-center space-x-1 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Back</span>
@@ -231,7 +226,7 @@ export default function GuidedTourModal({ setActiveTab }) {
 
             <button
               onClick={handleNext}
-              className="px-4 py-2 rounded-xl bg-[#34A853] hover:bg-[#188038] text-white text-xs font-bold shadow flex items-center space-x-1.5 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#188038] hover:bg-[#137333] text-white text-xs font-bold shadow flex items-center space-x-1.5 transition-colors cursor-pointer"
             >
               <span>{currentStepIndex === TOUR_STEPS.length - 1 ? 'Finish Tour' : 'Next Step'}</span>
               <ChevronRight className="w-4 h-4" />
