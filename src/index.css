@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-workspace: #131314;
+    --bg-surface: #1e1f20;
+    --bg-card: #28292a;
+    --border-subtle: #3c4043;
+    --border-hover: #5f6368;
+  }
+
+  body {
+    background-color: var(--bg-workspace);
+    color: #e8eaed;
+    font-family: 'Inter', 'Google Sans', -apple-system, sans-serif;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Google Cloud Card styling */
+.gcp-card {
+  background-color: #1e1f20;
+  border: 1px solid #3c4043;
+  border-radius: 0.75rem;
+}
+
+.gcp-card:hover {
+  border-color: #5f6368;
+}
+
+/* Tabular numbers for clean financial/clinical metrics */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Sleek Google Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3c4043;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5f6368;
+}
+
+/* Leaflet Dark Theme styling matching Google Maps */
+.leaflet-container {
+  background: #131314 !important;
+  font-family: inherit !important;
+  border-radius: 0.75rem;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #1e1f20 !important;
+  color: #e8eaed !important;
+  border: 1px solid #3c4043 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.6) !important;
+}
+
+.leaflet-popup-content {
+  margin: 10px 14px !important;
+}

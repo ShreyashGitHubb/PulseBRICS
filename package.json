@@ -1,0 +1,53 @@
+{
+  "name": "pulse-brics",
+  "version": "1.0.0",
+  "description": "Federated AI Health Supply Chain & Autonomous Redistribution Mesh for BRICS Nations",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run server:dev\" \"npm run client:dev\"",
+    "client:dev": "vite",
+    "client:build": "vite build",
+    "client:preview": "vite preview",
+    "server:dev": "node --watch server/index.js",
+    "server:start": "node server/index.js",
+    "start": "node server/index.js",
+    "build": "vite build"
+  },
+  "keywords": [
+    "google-cloud",
+    "gemini-ai",
+    "health-supply-chain",
+    "brics",
+    "predictive-ai",
+    "digital-public-good"
+  ],
+  "author": "PulseBRICS Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "canvas-confetti": "^1.9.3",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.436.0",
+    "multer": "^1.4.5-lts.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
+    "recharts": "^2.12.7",
+    "tailwind-merge": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.10",
+    "vite": "^5.4.2"
+  }
+}
